@@ -1,9 +1,9 @@
 import { fromJS } from 'immutable';
 import store from 'store';
 
-import { LOGIN, LOGOUT } from '../consts/auth';
+import { LOGIN_SUCCESS, LOGOUT } from '../consts/auth';
 
-const logged = (store.get('logged') === true);
+const logged = (!!store.get('token'));
 
 const initialState = fromJS({
   logged,
@@ -11,7 +11,7 @@ const initialState = fromJS({
 
 function auth(state = initialState, action) {
   switch (action.type) {
-    case LOGIN:
+    case LOGIN_SUCCESS:
       return state.set('logged', true);
     case LOGOUT:
       return state.set('logged', false);
