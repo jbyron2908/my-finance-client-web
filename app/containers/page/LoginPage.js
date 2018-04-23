@@ -51,7 +51,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = dispatch => ({
   login: (values) => {
-    dispatch(loginAction(values));
+    dispatch(loginAction(values.toJS()));
   },
 });
 
