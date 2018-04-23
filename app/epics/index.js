@@ -1,7 +1,8 @@
-import 'rxjs';
 import { combineEpics } from 'redux-observable';
 import user from './user';
+import login from './login';
 
-export default (action$, store) =>
-  combineEpics(user)(action$, store)
-    .do({ error: err => console.error(err) });
+export default combineEpics(
+  user,
+  login,
+);
