@@ -1,18 +1,30 @@
-/* eslint-disable no-undef */
 import store from 'store';
-import { LOGIN, LOGOUT } from '../consts/auth';
+
+import { LOGIN, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT } from '../consts/auth';
 
 export function loginAction(values) {
-  store.set('logged', true);
-  console.log('loginAction', values);
-
   return {
     type: LOGIN,
+    payload: values,
+  };
+}
+
+export function loginSuccessAction(token) {
+  store.set('token', token);
+
+  return {
+    type: LOGIN_SUCCESS,
+  };
+}
+
+export function loginFailAction() {
+  return {
+    type: LOGIN_FAIL,
   };
 }
 
 export function logoutAction() {
-  store.set('logged', false);
+  store.remove('token');
 
   return {
     type: LOGOUT,
