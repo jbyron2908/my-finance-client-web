@@ -1,6 +1,8 @@
 import { ApolloClient } from 'apollo-client';
 import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
+import { Observable } from 'rxjs/Observable';
+import store from 'store';
 
 const httpLink = createHttpLink({
   uri: 'http://localhost:4000',
@@ -12,29 +14,39 @@ const client = new ApolloClient({
 });
 
 export const query = (query, variables = {}) => {
-  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjamV5OW5kbmIwMDBnMDkyOGdleGh2d2hvIiwiaWF0IjoxNTIyNzgwMTIxfQ.Pm9wZs7vC7DgxvcpbmG_z4JelbluFK0mIvrCR-V72So';
+  const token = store.get('token');
 
-  return client.query({
+  const queryObject = {
     query,
     variables,
-    context: {
+  };
+
+  if (token) {
+    queryObject.context = {
       headers: {
         authorization: token,
       },
-    },
-  });
+    };
+  }
+
+  return Observable.fromPromise(client.query(queryObject));
 };
 
 export const mutate = (mutation, variables = {}) => {
-  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjamV5OW5kbmIwMDBnMDkyOGdleGh2d2hvIiwiaWF0IjoxNTIyNzgwMTIxfQ.Pm9wZs7vC7DgxvcpbmG_z4JelbluFK0mIvrCR-V72So';
+  const token = store.get('token');
 
-  return client.mutate({
+  const mutateObject = {
     mutation,
     variables,
-    context: {
+  };
+
+  if (token) {
+    mutateObject.context = {
       headers: {
         authorization: token,
       },
-    },
-  });
+    };
+  }
+
+  return Observable.fromPromise(client.mutate(mutateObject));
 };

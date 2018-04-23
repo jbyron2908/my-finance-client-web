@@ -6,7 +6,7 @@ import { getUserComplete } from '../actions/user';
 
 const user = action$ =>
   action$.ofType(GET_USER)
-    .mergeMap(() => Observable.fromPromise(meQuery())
+    .mergeMap(() => meQuery()
       .map(response => getUserComplete(response.data.me)));
 
 export default user;
