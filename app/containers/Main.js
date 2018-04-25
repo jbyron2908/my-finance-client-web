@@ -4,10 +4,14 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form/immutable';
 import { createStructuredSelector } from 'reselect';
-import { Form, Input, Button } from 'semantic-ui-react';
+import { Grid, GridRow, GridColumn, Form, Button } from 'semantic-ui-react';
 import { increase } from '../actions/counter';
 import { getUser } from '../actions/user';
 import { getSelectCounter } from '../selectors/counter';
+import DatePicker from '../components/DatePicker';
+import DateRangePicker from '../components/DateRangePicker';
+import Checkbox from '../components/Checkbox';
+import Dropdown from '../components/Dropdown';
 
 import database from '../rxdb/database/database';
 
@@ -23,54 +27,65 @@ class Main extends Component {
       onGetUserGraphQLClick,
       onAddHeroRxDBClick, onGetHeroRxDBClick,
       onAddUserRxDBClick, onGetUserRxDBClick,
-      handleSubmit,
+      handleSubmit, change,
     } = this.props;
 
     return (
-      <div>
-        <div>
+      <Grid>
+        <GridRow centered>
             To get started, edit App.js and save to reload.
             Counter = {counter}
-        </div>
-        <div>
+        </GridRow>
+        <GridRow centered>
           <Button onClick={() => onIncreaseCounterClick()}>
             Increase counter
           </Button>
           <Button onClick={() => onGetUserGraphQLClick()}>
             Get user
           </Button>
-        </div>
-        <div>
+        </GridRow>
+        <GridRow centered>
           <Button onClick={() => onAddHeroRxDBClick()}>
           Add hero
           </Button>
           <Button onClick={() => onGetHeroRxDBClick()}>
           Get hero
           </Button>
-        </div>
-        <div>
+        </GridRow>
+        <GridRow centered>
           <Button onClick={() => onAddUserRxDBClick()}>
-            Add user rxdb
+            Add user RxDB
           </Button>
           <Button onClick={() => onGetUserRxDBClick()}>
-            Get user rxdb
+            Get user RxDB
           </Button>
-        </div>
-        <div>
-          <Form onSubmit={handleSubmit(values => this.submitTest(values))} >
-            <div>
-              <Field name="firstName" component={Input} label="First name" placeholder="First name" />
-            </div>
-            <div>
-              <Field name="lastName" component={Input} label="Last Name" placeholder="Last Name" />
-            </div>
-            <div>
-              <Field name="email" component={Input} label="Email" placeholder="Email" type="email" />
-            </div>
-            <Button type="submit">Submit</Button>
-          </Form>
-        </div>
-      </div>
+        </GridRow>
+        <GridRow centered>
+          <GridColumn width={6}>
+            <Form onSubmit={handleSubmit(values => this.submitTest(values))} >
+              <Field name="firstName" component={Form.Input} label="First name" placeholder="First name" />
+              <Field name="lastName" component={Form.Input} label="Last Name" placeholder="Last Name" />
+              <Field name="email" component={Form.Input} label="Email" placeholder="Email" type="email" />
+              <Form.Field>
+                <Field name="date" component={DatePicker} />
+              </Form.Field>
+              <Form.Field>
+                <Field name="dateRange" component={DateRangePicker} />
+              </Form.Field>
+              <Form.Field>
+                <Field name="check" checkValue="test1" component={Checkbox} label="Email" />
+              </Form.Field>
+              <Form.Field>
+                <Field name="check" checkValue="test2" component={Checkbox} label="Email2" />
+              </Form.Field>
+              <Form.Field>
+                <Field name="dropdown" component={Dropdown} placeholder="State" fluid search selection />
+              </Form.Field>
+              <Form.Button type="submit">Submit</Form.Button>
+            </Form>
+          </GridColumn>
+        </GridRow>
+      </Grid>
     );
   }
 }
