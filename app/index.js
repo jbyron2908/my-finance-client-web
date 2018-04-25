@@ -6,6 +6,8 @@ import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
 import 'semantic-ui-css/semantic.css';
+import 'react-dates/lib/css/_datepicker.css';
+import 'react-dates/initialize';
 import 'babel-polyfill';
 import App from './components/App';
 import configureStore from './config/configureStore';
