@@ -1,12 +1,20 @@
+/* eslint-disable jsx-a11y/label-has-for */
 import React from 'react';
 import PropTypes from 'prop-types';
 import momentPropTypes from 'react-moment-proptypes';
 import moment from 'moment';
 import omit from 'lodash/omit';
 import { DateRangePicker } from 'react-dates';
-import { START_DATE, END_DATE, ICON_BEFORE_POSITION, ICON_AFTER_POSITION, HORIZONTAL_ORIENTATION, VERTICAL_ORIENTATION, ANCHOR_LEFT, ANCHOR_RIGHT } from 'react-dates/constants';
+import {
+  START_DATE, END_DATE, ICON_BEFORE_POSITION,
+  ICON_AFTER_POSITION, HORIZONTAL_ORIENTATION, VERTICAL_ORIENTATION,
+  ANCHOR_LEFT, ANCHOR_RIGHT,
+} from 'react-dates/constants';
+import { FormField } from 'semantic-ui-react';
 
 const propTypes = {
+  label: PropTypes.string,
+
   autoFocus: PropTypes.bool,
   autoFocusEndDate: PropTypes.bool,
   stateDateWrapper: PropTypes.func,
@@ -72,6 +80,8 @@ const propTypes = {
 };
 
 const defaultProps = {
+  label: '',
+
   autoFocus: false,
   autoFocusEndDate: false,
   initialStartDate: null,
@@ -178,8 +188,10 @@ class DateRangePickerWrapper extends React.Component {
 
   render() {
     const { focusedInput, startDate, endDate } = this.state;
+    const { label } = this.props;
 
     const props = omit(this.props, [
+      'label',
       'autoFocus',
       'autoFocusEndDate',
       'initialStartDate',
@@ -190,7 +202,8 @@ class DateRangePickerWrapper extends React.Component {
     ]);
 
     return (
-      <div>
+      <FormField>
+        <label>{label}</label>
         <DateRangePicker
           {...props}
           onDatesChange={values => this.onDatesChange(values)}
@@ -199,7 +212,7 @@ class DateRangePickerWrapper extends React.Component {
           startDate={startDate}
           endDate={endDate}
         />
-      </div>
+      </FormField>
     );
   }
 }

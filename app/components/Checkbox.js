@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Checkbox } from 'semantic-ui-react';
+import { FormField, Checkbox } from 'semantic-ui-react';
 import { omit } from 'lodash';
 
 const propTypes = {
@@ -20,10 +20,23 @@ const defaultPropTypes = {
 };
 
 class CustomCheckbox extends Component {
+  constructor(props) {
+    super(props);
+
+    const { defaultChecked } = props;
+    if (defaultChecked) {
+      this.onChange(defaultChecked);
+    }
+  }
+
   onChange(checked) {
     const { checkValue, radio, input: { onChange } } = this.props;
-    if (!radio && !checked) {
-      onChange('');
+    if (!radio) {
+      if (checked) {
+        onChange(checkValue);
+      } else {
+        onChange('');
+      }
     } else {
       onChange(checkValue);
     }
@@ -39,12 +52,14 @@ class CustomCheckbox extends Component {
     ]);
 
     return (
-      <Checkbox
-        {...props}
-        value={checkValue}
-        checked={checkValue === value}
-        onChange={(e, data) => this.onChange({ checked })}
-      />
+      <FormField>
+        <Checkbox
+          {...props}
+          value={checkValue}
+          checked={checkValue === value}
+          onChange={(e, { checked }) => this.onChange(checked)}
+        />
+      </FormField>
     );
   }
 }

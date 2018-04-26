@@ -1,10 +1,11 @@
-/* eslint-disable react/prop-types */
+/* eslint-disable react/prop-types,jsx-a11y/label-has-for */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Dropdown } from 'semantic-ui-react';
+import { FormField, Dropdown } from 'semantic-ui-react';
 import { omit } from 'lodash';
 
 const propTypes = {
+  label: PropTypes.string,
   input: PropTypes.shape({
     value: PropTypes.string,
     onChange: PropTypes.func,
@@ -13,6 +14,7 @@ const propTypes = {
 };
 
 const defaultPropTypes = {
+  label: '',
   input: {
     onChange: () => {},
   },
@@ -45,16 +47,21 @@ class CustomDropdown extends Component {
   }
 
   render() {
+    const { label } = this.props;
+
     const props = omit(this.props, [
       'input',
       'meta',
     ]);
 
     return (
-      <Dropdown
-        {...props}
-        onChange={(e, { value }) => this.onChange(value)}
-      />
+      <FormField>
+        <label>{label}</label>
+        <Dropdown
+          {...props}
+          onChange={(e, { value }) => this.onChange(value)}
+        />
+      </FormField>
     );
   }
 }

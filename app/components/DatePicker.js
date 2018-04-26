@@ -1,14 +1,18 @@
+/* eslint-disable jsx-a11y/label-has-for */
 import React from 'react';
 import PropTypes from 'prop-types';
 import momentPropTypes from 'react-moment-proptypes';
 import moment from 'moment';
 import omit from 'lodash/omit';
+import { FormField } from 'semantic-ui-react';
 
 import { SingleDatePicker } from 'react-dates';
 import { ICON_BEFORE_POSITION, ICON_AFTER_POSITION, HORIZONTAL_ORIENTATION, VERTICAL_ORIENTATION, ANCHOR_LEFT, ANCHOR_RIGHT } from 'react-dates/constants';
 
 
 const propTypes = {
+  label: PropTypes.string,
+
   autoFocus: PropTypes.bool,
   initialDate: momentPropTypes.momentObj,
 
@@ -67,6 +71,8 @@ const propTypes = {
 };
 
 const defaultProps = {
+  label: '',
+
   autoFocus: false,
   initialDate: null,
 
@@ -146,8 +152,10 @@ class SingleDatePickerWrapper extends React.Component {
 
   render() {
     const { focused, date } = this.state;
+    const { label } = this.props;
 
     const props = omit(this.props, [
+      'label',
       'autoFocus',
       'initialDate',
       'input',
@@ -155,14 +163,17 @@ class SingleDatePickerWrapper extends React.Component {
     ]);
 
     return (
-      <SingleDatePicker
-        {...props}
-        id="date_input"
-        date={date}
-        focused={focused}
-        onDateChange={newDate => this.onDateChange(newDate)}
-        onFocusChange={newFocused => this.onFocusChange(newFocused)}
-      />
+      <FormField>
+        <label>{label}</label>
+        <SingleDatePicker
+          {...props}
+          id="date_input"
+          date={date}
+          focused={focused}
+          onDateChange={newDate => this.onDateChange(newDate)}
+          onFocusChange={newFocused => this.onFocusChange(newFocused)}
+        />
+      </FormField>
     );
   }
 }
