@@ -12,6 +12,8 @@ import DatePicker from '../components/DatePicker';
 import DateRangePicker from '../components/DateRangePicker';
 import Checkbox from '../components/Checkbox';
 import Dropdown from '../components/Dropdown';
+import TextArea from '../components/TextArea';
+import Input from '../components/Input';
 
 import database from '../rxdb/database/database';
 
@@ -63,24 +65,16 @@ class Main extends Component {
         <GridRow centered>
           <GridColumn width={6}>
             <Form onSubmit={handleSubmit(values => this.submitTest(values))} >
-              <Field name="firstName" component={Form.Input} label="First name" placeholder="First name" />
-              <Field name="lastName" component={Form.Input} label="Last Name" placeholder="Last Name" />
-              <Field name="email" component={Form.Input} label="Email" placeholder="Email" type="email" />
-              <Form.Field>
-                <Field name="date" component={DatePicker} />
-              </Form.Field>
-              <Form.Field>
-                <Field name="dateRange" component={DateRangePicker} />
-              </Form.Field>
-              <Form.Field>
-                <Field name="check" checkValue="test1" component={Checkbox} label="Email" />
-              </Form.Field>
-              <Form.Field>
-                <Field name="check" checkValue="test2" component={Checkbox} label="Email2" />
-              </Form.Field>
-              <Form.Field>
-                <Field name="dropdown" component={Dropdown} placeholder="State" fluid search selection />
-              </Form.Field>
+              <Field name="firstName" component={Input} label="First name" placeholder="First name" />
+              <Field name="lastName" component={Input} label="Last Name" placeholder="Last Name" />
+              <Field name="email" component={Input} label="Email" placeholder="Email" type="email" initialValue="user" />
+              <Field name="description" initialValue="initialValue" component={TextArea} label="Description" placeholder="Description" />
+              <Field name="date" component={DatePicker} label="Date" />
+              <Field name="dateRange" component={DateRangePicker} label="Period" />
+              <Field name="check" radio checkValue="test1" component={Checkbox} label="Email" />
+              <Field name="check" radio checkValue="test2" component={Checkbox} label="Email2" />
+              <Field name="check2" component={Checkbox} label="Email3" />
+              <Field name="dropdown" component={Dropdown} label="State" placeholder="State" multiple search selection />
               <Form.Button type="submit">Submit</Form.Button>
             </Form>
           </GridColumn>
