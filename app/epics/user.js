@@ -1,5 +1,4 @@
 import 'rxjs';
-import { Observable } from 'rxjs/Observable';
 import { GET_USER } from '../consts/user';
 import meQuery from '../graphql/queries/me';
 import { getUserComplete } from '../actions/user';

@@ -1,7 +1,8 @@
 /* eslint-disable max-len,no-underscore-dangle,no-undef,global-require,global-require */
-import { applyMiddleware, compose, createStore } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
 import { createEpicMiddleware } from 'redux-observable';
 import { routerMiddleware } from 'react-router-redux';
+import { composeWithDevTools } from 'remote-redux-devtools';
 import { fromJS } from 'immutable';
 
 import rootEpic from '../epics';
@@ -17,14 +18,12 @@ export default function configureStore(history) {
     applyMiddleware(...middlewares),
   ];
 
-  const composeEnhancers =
-    process.env.NODE_ENV !== 'production' &&
-    typeof window === 'object' &&
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-      ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-        shouldHotReload: false,
-      })
-      : compose;
+  const composeEnhancers = composeWithDevTools({
+    realtime: true,
+    name: 'Your Instance Name',
+    host: '127.0.0.1',
+    port: 1024, // the port your remotedev server is running at
+  });
 
   const initialState = {};
 

@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types,jsx-a11y/label-has-for */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { FormField, Label, TextArea } from 'semantic-ui-react';
+import { FormField, TextArea } from 'semantic-ui-react';
 import { omit } from 'lodash';
 
 const propTypes = {

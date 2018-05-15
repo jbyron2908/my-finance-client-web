@@ -13,11 +13,11 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-export const query = (query, variables = {}) => {
+export const query = (gql, variables = {}) => {
   const token = store.get('token');
 
   const queryObject = {
-    query,
+    query: gql,
     variables,
   };
 
@@ -32,11 +32,11 @@ export const query = (query, variables = {}) => {
   return Observable.fromPromise(client.query(queryObject));
 };
 
-export const mutate = (mutation, variables = {}) => {
+export const mutate = (gql, variables = {}) => {
   const token = store.get('token');
 
   const mutateObject = {
-    mutation,
+    mutation: gql,
     variables,
   };
 
