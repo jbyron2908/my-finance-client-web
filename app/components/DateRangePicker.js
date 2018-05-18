@@ -135,7 +135,7 @@ const defaultProps = {
   minimumNights: 1,
   enableOutsideDays: false,
   isDayBlocked: () => false,
-  isOutsideRange: day => false,
+  isOutsideRange: () => false,
   isDayHighlighted: () => false,
 
   displayFormat: () => moment.localeData().longDateFormat('L'),

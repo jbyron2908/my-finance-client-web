@@ -9,7 +9,7 @@ RxDB.plugin(require('pouchdb-adapter-idb'));
 
 let dbPromise = null;
 
-const create = async function () {
+const create = async () => {
   const db = await RxDB.create({ name: 'heroesreactdb', adapter: 'idb', password: 'myLongAndStupidPassword' });
   await Promise.all(collections.map(colData => db.collection(colData)));
   return db;

@@ -19,7 +19,6 @@ import database from '../rxdb/database/database';
 
 class Main extends Component {
   submitTest(values) {
-    this.props.change('firstName', 'new value');
     this.props.onSubmitClick(values);
   }
 
@@ -29,7 +28,7 @@ class Main extends Component {
       onGetUserGraphQLClick,
       onAddHeroRxDBClick, onGetHeroRxDBClick,
       onAddUserRxDBClick, onGetUserRxDBClick,
-      handleSubmit, change,
+      handleSubmit,
     } = this.props;
 
     return (
@@ -73,7 +72,7 @@ class Main extends Component {
               <Field name="dateRange" component={DateRangePicker} label="Period" />
               <Field name="check" radio checkValue="test1" component={Checkbox} label="Email" />
               <Field name="check" radio checkValue="test2" component={Checkbox} label="Email2" />
-              <Field name="check2" component={Checkbox} label="Email3" />
+              <Field name="check2" defaultChecked component={Checkbox} label="Email3" />
               <Field name="dropdown" component={Dropdown} label="State" placeholder="State" multiple search selection />
               <Form.Button type="submit">Submit</Form.Button>
             </Form>
@@ -93,7 +92,6 @@ Main.propTypes = {
   onAddUserRxDBClick: PropTypes.func.isRequired,
   onGetUserRxDBClick: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  change: PropTypes.func.isRequired,
   onSubmitClick: PropTypes.func.isRequired,
 };
 

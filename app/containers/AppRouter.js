@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Redirect, Route, Switch } from 'react-router';
 import { Container } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
@@ -11,27 +11,25 @@ import Main from './Main';
 import UIPlayground from './UIPlayground';
 import AccountPage from './page/AccountPage';
 
-class AppRouter extends Component {
-  render() {
-    const { logged } = this.props;
+const AppRouter = (props) => {
+  const { logged } = props;
 
-    if (!logged) {
-      return <Redirect to="/login" />;
-    }
-
-    return (
-      <Container style={{ padding: '1em 0em' }}>
-        <TopBar />
-        <Switch>
-          <Route exact path="/" component={Main} />
-          <Route path="/accounts" component={AccountPage} />
-          <Route path="/playground" component={UIPlayground} />
-          <Redirect to="/" />
-        </Switch>
-      </Container>
-    );
+  if (!logged) {
+    return <Redirect to="/login" />;
   }
-}
+
+  return (
+    <Container style={{ padding: '1em 0em' }}>
+      <TopBar />
+      <Switch>
+        <Route exact path="/" component={Main} />
+        <Route path="/accounts" component={AccountPage} />
+        <Route path="/playground" component={UIPlayground} />
+        <Redirect to="/" />
+      </Switch>
+    </Container>
+  );
+};
 
 AppRouter.propTypes = {
   logged: PropTypes.bool.isRequired,
